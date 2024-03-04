@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFirebase } from "../context/firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
@@ -24,6 +25,19 @@ export default function SignUp() {
     }
 
   }
+  
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(firebase.auth, provider);
+      const user = result.user;
+      console.log(result);
+      console.log("Google Sign-in successful. User:", user);
+      await firebase.puttData("user/" + (user.displayName).trim(),{name: user.displayName,email: user.email});
+    } catch (error) {
+      console.error("Error signing in with Google:", error.message);
+    }
+  }
 
   return (
     <div className='sighup form_otr'>
@@ -45,6 +59,7 @@ export default function SignUp() {
             </div>
             <div className="column col1 pd10">
               <input type="submit" value="Submit" />
+              <input type="button" value="signing with google" onClick={handleGoogleSignIn} />
             </div>
           </div>
         </form>

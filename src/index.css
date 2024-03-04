@@ -103,5 +103,5 @@ h6{font-size: 24px;line-height: 100%;font-family: var(--fonts2);}
 .form_otr form{margin-top:15px;border: 12px solid #000;border-radius: 15px;padding: 30px;}
 .form_otr label{display: block;font-size: 18px;line-height: 30px;margin-bottom: 5px;cursor: pointer;}
 .form_otr input{width: 100%;height: 40px;padding: 0px 15px;border-radius: 15px;border: 2px solid #000;color: #000;background: #fff;}
-.form_otr input[type="submit"]{background: #000;color: #fff;text-transform: uppercase;font-size: 16px;height: auto !important;width: max-content;padding: 10px 25px;border: 2px solid #000;transition: .3s;cursor: pointer;}
-.form_otr input[type="submit"]:hover{background: #fff;color: #000;}
+.form_otr input[type="submit"],.form_otr input[type="button"]{background: #000;color: #fff;text-transform: uppercase;font-size: 16px;height: auto !important;width: max-content;padding: 10px 25px;border: 2px solid #000;transition: .3s;cursor: pointer;margin-right: 15px;}
+.form_otr input[type="submit"]:hover,.form_otr input[type="button"]:hover{background: #fff;color: #000;}

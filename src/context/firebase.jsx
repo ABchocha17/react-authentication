@@ -19,9 +19,10 @@ const analytics = getAnalytics(firebaseApp);
 const auth = getAuth(firebaseApp);
 const database = getDatabase(firebaseApp);
 
-
 const firebaseContext = createContext(null);
 export const useFirebase = () => useContext(firebaseContext);
+
+
 
 
 export const FirebaseProvider = (props) =>{
@@ -33,8 +34,8 @@ export const FirebaseProvider = (props) =>{
     }
 
     return(
-    <firebaseContext.Provider value={{register,puttData,analytics}}>
+    <firebaseContext.Provider value={{register,puttData,analytics,auth}}>
         {props.children}
     </firebaseContext.Provider>
     )
-}
+} 
