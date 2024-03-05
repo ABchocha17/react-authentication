@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
 import { getDatabase,set,ref } from "firebase/database";
 import { getAnalytics } from "firebase/analytics";
 import { createContext, useContext } from "react";
+import React, { useEffect, useState } from 'react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDz4qZRGHLoWZR0eip5qAuiVOeXo4q3H1w",
@@ -14,7 +15,7 @@ const firebaseConfig = {
   measurementId: "G-92L91BM2P4"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(firebaseApp);
 const auth = getAuth(firebaseApp);
 const database = getDatabase(firebaseApp);
@@ -24,17 +25,36 @@ export const useFirebase = () => useContext(firebaseContext);
 
 
 
-
 export const FirebaseProvider = (props) =>{
     const register = (email,password) =>{
         return createUserWithEmailAndPassword(auth, email, password);
+    }
+    const login = (email,password) =>{
+        return signInWithEmailAndPassword(auth, email, password);
     }
     const puttData = (key,data) =>{
         return set(ref(database,key),data);
     }
 
+    const [logUser,setLogUser] = useState(null);
+
+    useEffect(()=>{
+        userIs()
+    },[]);
+
+    const userIs = () =>{
+        onAuthStateChanged(auth,user=>{
+            if(user){
+            setLogUser(user);
+            }else{
+            setLogUser(null);
+            }
+        })
+    }
+       
+    
     return(
-    <firebaseContext.Provider value={{register,puttData,analytics,auth}}>
+    <firebaseContext.Provider value={{register,puttData,analytics,auth,login,logUser}}>
         {props.children}
     </firebaseContext.Provider>
     )

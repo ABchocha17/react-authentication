@@ -18,7 +18,7 @@ export default function SignUp() {
     e.preventDefault();
     try {
       await firebase.register(formData.email, formData.password);
-      await firebase.puttData("user/" + formData.username,{name: formData.username,email: formData.email});
+      await firebase.puttData("user/" + formData.username,{name: formData.username,email: formData.email,password:formData.password});
       setFormData({ username: "", email: "", password: "" });
     } catch (error) {
       console.error("Error signing up:", error.message);
